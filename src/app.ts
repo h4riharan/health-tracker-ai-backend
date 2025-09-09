@@ -1,0 +1,33 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import authRoutes from './routes/authRoutes';
+import dataRoutes from './routes/dataRoutes';
+import aiRoutes from './routes/aiRoutes';
+import { json } from 'body-parser';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(express.json()); // Important for parsing JSON bodies
+
+// Database connection
+const mongoURI = process.env.MONGODB_URI as string;
+
+mongoose.connect(mongoURI)
+  .then(() => console.log('MongoDB connected!'))
+  .catch((err) => console.error('MongoDB connection error:', err));
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api', dataRoutes);
+app.use('/api/ai', aiRoutes);
+app.get('/api/test', (req, res) => res.send('API is working'));
+app.get('/api/ping', (req, res) => res.json({ pong: true }));
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
