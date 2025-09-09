@@ -25,7 +25,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api', dataRoutes);
 app.use('/api/ai', aiRoutes);
 app.get('/api/test', (req, res) => res.send('API is working'));
-app.get('/api/ping', (req, res) => res.json({ pong: true }));
+app.get('/', (req, res) => {
+  res.send('Health Tracker API is running');
+});
 
 // Start the server
 app.listen(PORT, () => {
