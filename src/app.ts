@@ -1,8 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import authRoutes from './routes/authRoutes';
-import dataRoutes from './routes/dataRoutes';
-import aiRoutes from './routes/aiRoutes';
+import authRoutes from './routes/authRoutes.js';
+import dataRoutes from './routes/dataRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 import { json } from 'body-parser';
 import dotenv from 'dotenv';
 
@@ -18,7 +18,7 @@ const mongoURI = process.env.MONGODB_URI as string;
 
 mongoose.connect(mongoURI)
   .then(() => console.log('MongoDB connected!'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .catch((err: unknown) => console.error('MongoDB connection error:', err));
 
 // Routes
 app.use('/api/auth', authRoutes);
