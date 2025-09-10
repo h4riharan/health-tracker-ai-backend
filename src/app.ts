@@ -5,6 +5,7 @@ import dataRoutes from './routes/dataRoutes.js';
 import aiRoutes from './routes/aiRoutes.js';
 import { json } from 'body-parser';
 import dotenv from 'dotenv';
+import cors from 'cors';
 
 dotenv.config();
 const app = express();
@@ -12,6 +13,10 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json()); // Important for parsing JSON bodies
+app.use(cors({
+  origin: 'https://health-tracker-ai-hari.netlify.app',
+  credentials: true
+}));
 
 // Database connection
 const mongoURI = process.env.MONGODB_URI as string;
